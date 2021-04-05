@@ -22,7 +22,7 @@ http://localhost:8081?hidestandardpresets
 ```
 
 When the cgi requests to the camera succeed, the Presets list should be populated and you can use the <>^v buttons to tilt and pan the camera.\
-<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Camera_Control_Panel.png'>
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Camera_Control_Panel.png'>
 
 To delete or add a preset, enter the name of the preset in the lower text field and press the + (add) or - (delete) button.
 
