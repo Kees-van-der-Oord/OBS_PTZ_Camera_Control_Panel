@@ -39,13 +39,22 @@ Hit Apply and Close and the new docking panel will appear within 20 seconds:\
 <img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Custom_Browser_Dock_Panel.png'>
 
 ## scene_execute_command.lua
-The OBS <a href='https://obsproject.com/forum/resources/scene-execute-command.1028/'>Scene Execute Command'> script implements executing an cgi command upon scene changes. To automatically switch to camera position, specify the appropriate command in the script arguments. The FOSCAM cgi command to go to a preset point is:\
+The OBS <a href='https://obsproject.com/forum/resources/scene-execute-command.1028/'>Scene Execute Command'</a> script implements executing an cgi command upon scene changes. To automatically switch to camera position, specify the appropriate command in the script arguments. The FOSCAM cgi command to go to a preset point is:\
 ```
 curl.exe http://CAMERAIPADDRESS:88/cgi-bin/CGIProxy.fcgi?usr=admin^&pwd=PASSWORD^&cmd=ptzGotoPresetPoint^&name=SCENE_VALUE
 ```
+In the commandline, the & characters must be escaped with a ^ to prevent the command interpreter to start a new command. \
 I configure the move usually to take place in a scene where a different camera is selected to prevent dizziness of the audience.
   
 ## GStreamer
-
-E.G. to send
+I could get a steady 25 fps Full HD stream from the camera in OBS using the <a href='https://gstreamer.freedesktop.org/'>GStreamer Library</a> and the <a href='https://obsproject.com/forum/resources/obs-gstreamer.696/'>OBS GStreamer plugin'</a>.\
+Download and install gstreamer-1.0-mingw-x86_64-1.18.4.msi from https://gstreamer.freedesktop.org/data/pkg/windows.\
+Add to system or user path: C:\gstreamer\1.0\mingw_x86_64\bin.\
+Download <a href='https://github.com/fzwoch/obs-gstreamer/releases/tag/v0.3.0'>obs-gstreamer 0.30.0</a> and unpack the obs-gstreamer.dll library to "C:\Program Files\obs-studio\obs-plugins\64bit".\
+Now the 'GStreamer Source' should be in the OBS New Source menu.\
+The following pipeline gives me a good stream:
+```
+rtspsrc location=rtspt://admin:PASSWORD@IPADDRESS:88/videoMain latency=120 ! rtph264depay ! h264parse ! avdec_h264 ! video. 
+```
+It seems to work only when the camera is set to Full HD mode. I guess that for different formats, a video conversion should be added to the pipeline.
 
