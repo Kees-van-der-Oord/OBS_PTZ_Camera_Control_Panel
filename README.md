@@ -8,7 +8,7 @@ The PTZControlServer.py python script implements the local webserver. To get it 
 PTZControlServer started http://localhost:8081 for foscam camera http://192.168.2.100:88
 ```
 If not, it is likely that port 8081 is already used by another server. Selecting another random port number will fix that.
-The server accepts the following command lne parameters:
+The server accepts the following command line parameters:
 |key|value|
 |--|--|
 |port|the service port (defaults to 8081)|
