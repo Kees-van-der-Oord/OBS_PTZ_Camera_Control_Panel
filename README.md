@@ -4,10 +4,10 @@ I recently bought a Foscam FI9936P IP camera to use for streaming to Youtube wit
 ## PTZControlServer.py
 The PTZControlServer.py python script implements the local webserver. To get it running, install python and start the server with the commandline 'python PZTControlServer.py'. If the server starts correctly, it should tell you that it is 'started':
 ```
-> python PTZControlServer.py -type foscam -url http://192.168.2.100:88 -pwd PASSWORD
+> python PTZControlServer.py -port 8081 -type foscam -url http://192.168.2.100:88 -pwd PASSWORD
 PTZControlServer started http://localhost:8081 for foscam camera http://192.168.2.100:88
 ```
-If not, it is likely that port 8081 is already used by another server. Changing the server port in the .py file for a random other number will fix that.
+If not, it is likely that port 8081 is already used by another server. Selecting another random port number will fix that.
 The server accepts the following command lne parameters:
 |key|value|
 |--|--|
