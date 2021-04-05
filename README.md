@@ -56,7 +56,7 @@ The following pipeline gives me a good stream:
 ```
 rtspsrc location=rtspt://admin:PASSWORD@IPADDRESS:88/videoMain latency=120 ! rtph264depay ! h264parse ! avdec_h264 ! video. 
 ```
-<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_GSTREAMER_RTSPT.png'>\
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_GSTREAMER_RTSPT.png'>
 
 The latency was tuned to yield the same latency as the connected USB camera.\
 The pipeline seems to work only when the camera is set to the same format as the OBS canvas: (Full HD).\
