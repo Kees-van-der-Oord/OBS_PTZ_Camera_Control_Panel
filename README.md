@@ -4,25 +4,22 @@ I recently bought a Foscam FI9936P IP camera to use for streaming to Youtube wit
 ## PTZControlServer.py
 The PTZControlServer.py python script implements the local webserver. To get it running, install python and start the server with the commandline 'python PZTControlServer.py'. If the server starts correctly, it should tell you that it is 'started':
 ```
-C:\home\Kees\git\OBS_PTZ_Camera_Control_Panel>python PTZControlServer.py
-PTZControlServer started http://localhost:8081
+> python PTZControlServer.py -type foscam -url http://192.168.2.100:88 -pwd PASSWORD
+PTZControlServer started http://localhost:8081 for foscam camera http://192.168.2.100:88
 ```
 If not, it is likely that port 8081 is already used by another server. Changing the server port in the .py file for a random other number will fix that.
+The server accepts the following command lne parameters:
+|key|value|
+|--|--|
+|type|the camera type (defaults to 'foscam')|
+|url|url of the camera (protocol://ip-address:port)|
+|usr|the name of the user (defaults to 'admin')|
+|pwd|the password|
 
 To test the server, launch your favorite browser and enter the following URL:
 ```
-http://localhost:8081?url=http://IP:PORT&pwd=PASSWORD
+http://localhost:8081?hidestandardpresets
 ```
-with the IP address and PORT number of the camera and the admin PASSWORD to get access.\
-You can find the IP address of your camera with the Foscam VMS or ipcamera software.\
-By default the Foscam cameras use port 88 for cgi commands.\
-The server accepts the following query parameters:
-|key|value|
-|--|--|
-|url|url of the camera (protocol://ip-address:port)|
-|type|the camera type (defaults to 'foscam')|
-|usr|the name of the user (defaults to 'admin')|
-|pwd|the password|
 
 When the cgi requests to the camera succeed, the Presets list should be populated and you can use the <>^v buttons to tilt and pan the camera.\
 <img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Camera_Control_Panel.png'>
@@ -31,4 +28,4 @@ To delete or add a preset, enter the name of the preset in the lower text field 
 
 The actual .cgi commands are present in the file 'foscam.html'. When another 'type' is specified, the server will look for an .html file with that name. The javascript in the .html file uses a XMLHttpRequest to send the commands to the server. The server forwards all requests with a non-empty path to the camera.
 
-The python webserver only supports one client. To support more cameras you have to start a session for each camera on a different port. 
+The python webserver only supports one client. To support more cameras you have to start a server session for each camera on a different port.
