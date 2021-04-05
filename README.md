@@ -23,3 +23,8 @@ The server accepts the following query parameters:
 |type|the camera type (defaults to 'foscam')|
 |usr|the name of the user (defaults to 'admin')|
 |pwd|the password|
+
+When the cgi requests to the camera succeed, the Presets list should be populated and you can use the <>^v buttons to tilt and pan the camera. 
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Camera_Control_Panel.png'>
+
+To delete or add a preset, enter the name of the preset in the lower text field and press the + (add) or - (delete) button.
