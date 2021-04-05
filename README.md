@@ -29,3 +29,12 @@ To delete or add a preset, enter the name of the preset in the lower text field 
 The actual .cgi commands are present in the file 'foscam.html'. When another 'type' is specified, the server will look for an .html file with that name. The javascript in the .html file uses a XMLHttpRequest to send the commands to the server. The server forwards all requests with a non-empty path to the camera.
 
 The python webserver only supports one client. To support more cameras you have to start a server session for each camera on a different port.
+
+## OBS Custom Browser Dock
+Now close the browser window, launch OBS, select 'View | Docks | Custom Browser Docks ...' and configure a dock with the localserver and the server port:\
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Custom_Browser_Dock_Setup.png'>
+Hit Apply and Close and the new docking panel will appear within 20 seconds:\
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Custom_Browser_Dock_Panel.png'>
+
+
+
