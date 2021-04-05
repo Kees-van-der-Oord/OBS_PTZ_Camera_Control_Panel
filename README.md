@@ -16,7 +16,7 @@ http://localhost:8081?url=http://IP:PORT&pwd=PASSWORD
 with the IP address and PORT number of the camera and the admin PASSWORD to get access.\
 You can find the IP address of your camera with the Foscam VMS or ipcamera software.\
 By default the Foscam cameras use port 88 for cgi commands.\
-The server accepts the following query parameters:\
+The server accepts the following query parameters:
 |key|value|
 |--|--|
 |url|url of the camera (protocol://ip-address:port)|
