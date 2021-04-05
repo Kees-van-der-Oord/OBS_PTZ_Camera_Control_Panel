@@ -1,0 +1,158 @@
+<html>
+<header>
+<meta http-equiv="content-type" content="text/xml; charset=utf-8" />
+ <style>
+body {
+  background-color: #1f1e1f;
+	color: #FFFFFF;
+}
+input, select, button, div {
+	font-family: 'Microsoft Yahei';
+	font-size: 9pt;
+	color: #FFFFFF;
+	border-color: #1f1e1f;
+  background-color: #1f1e1f;
+}
+input, button {
+  background-color: #4c4c4c;
+	border-color: #3A3A3A;
+}
+.noscroll {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+}
+.noscroll select {
+  margin: 0px -0px 0px 0px;
+}
+</style> </header>
+<body  onload="onBodyLoad()">
+<table>
+<tr>
+<td valign="top"><table>
+<tr><td><div class="noscroll"><select id="Presets" onchange="setPreset()" size=2><option> List item 1 </option></select></div></td><td valign="top"></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td><input type='text' id=CurPreset size=12></td></tr>
+<tr><td><button onclick="delPreset();">-</button> <button onclick="defPreset();">+</button></td></tr>
+</table></td>
+<td valign="top"><table>
+<tr><td></td><td><button onmousedown="sendCommand('ptzMoveUp');" onmouseup="sendCommand('ptzStopRun');">^</button></td><td></td><tr>
+<tr><td><button onmousedown="sendCommand('ptzMoveLeft');" onmouseup="sendCommand('ptzStopRun');">&lt;</button></td><td></td><td><button onmousedown="sendCommand('ptzMoveRight');" onmouseup="sendCommand('ptzStopRun');">&gt;</button></td><tr>
+<tr><td></td><td><button onmousedown="sendCommand('ptzMoveDown');" onmouseup="sendCommand('ptzStopRun');">v</button></td><td></td><tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td><button onmousedown="sendCommand('zoomIn');" onmouseup="sendCommand('zoomStop');">+</button></td><td></td><td><button onmousedown="sendCommand('zoomOut');" onmouseup="sendCommand('zoomStop');">-</button></td><tr>
+</table>
+</table>
+<div id='status'></div>
+<script>
+var presets = document.getElementById('Presets');
+var curpreset = document.getElementById('CurPreset');
+var url = window.location.hostname + "/cgi-bin/CGIProxy.fcgi?cmd=";
+var hidestandardpresets = 0;
+var standardpresets = {'TopMost':1,'BottomMost':1,'LeftMost':1,'RightMost':1};
+function setStatus(text)
+{
+	var s = document.getElementById('status');
+	s.innerHTML = text;
+}
+function sendCommand(command, keep_preset, callback)
+{
+	var xhr = new XMLHttpRequest();
+	if(callback)
+	{
+		xhr.addEventListener("load",callback)
+	}
+	xhr.open("GET", url + command);
+	xhr.send();
+	if(!keep_preset && (presets.selectedIndex != -1))
+	{
+		presets.options[presets.selectedIndex].selected = false;
+	}
+  setStatus(command);
+}
+function fillPresets()
+{
+	var parser = new DOMParser();
+	var xml = parser.parseFromString(this.responseText, "text/xml");
+	count = xml.getElementsByTagName("cnt")[0].innerHTML;
+	presets.options.length = 0;
+	for(var i = 0; i < count; i++) 
+	{
+		preset = xml.getElementsByTagName("point" + i)[0].innerHTML;
+		if(hidestandardpresets && (preset in standardpresets))
+		{
+			continue;
+		}
+		presets.options[presets.options.length] = new Option(preset, "");
+	}
+	presets.size = presets.options.length;
+	// only way to hide the scrollbar is to set a negative right marging ?
+  presets.style.marginRight = 	presets.clientWidth - presets.offsetWidth; 
+}
+function initPresets()
+{
+	var xhr = new XMLHttpRequest();
+	xhr.addEventListener("load", fillPresets);
+	xhr.open("GET", url + "getPTZPresetPointList");
+	xhr.send();
+}
+function setPreset()
+{
+  var sel = presets.selectedIndex;
+	if(sel == -1) return;
+	var name = presets.options[sel].text;
+	sendCommand("ptzGotoPresetPoint&name=" + name, true);
+	curpreset.value = name;
+}
+function delPreset()
+{
+	var name = curpreset.value;
+	if(name == "") return;
+	sendCommand("ptzDeletePresetPoint&name=" + name);
+	initPresets();
+}
+function newPreset()
+{
+	var name = curpreset.value;
+	sendCommand("ptzAddPresetPoint&name=" + name, true);
+	initPresets();
+}
+function defPreset()
+{
+	var name = curpreset.value;
+	if(name == "") return;
+	sendCommand("ptzDeletePresetPoint&name=" + name, true, newPreset);
+}
+function parseQueryArgs()
+{
+	var args = {};
+  if(window.location.search.length > 1)
+	{
+		var list = window.location.search.substring(1).split("&");
+		for (let i = 0; i < list.length; i++) 
+		{
+			var m = list[i].match("([^=]+)=?(.+)?");
+			if(m.length > 1)
+			{
+				var key = m[1];
+				var val = "";
+				if(m.length > 2) 
+				{
+					val = m[2];
+				}
+				args[key] = val;
+		  }
+		}
+	}
+	return args;
+}
+function onBodyLoad()
+{
+   var args = parseQueryArgs();
+	 hidestandardpresets = 'hidestandardpresets' in args;
+   initPresets();
+}
+
+</script>
+</body>
+</html>
