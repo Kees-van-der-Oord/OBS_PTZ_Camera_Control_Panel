@@ -11,6 +11,7 @@ If not, it is likely that port 8081 is already used by another server. Changing 
 The server accepts the following command lne parameters:
 |key|value|
 |--|--|
+|port|the service port (defaults to 8081)|
 |type|the camera type (defaults to 'foscam')|
 |url|url of the camera (protocol://ip-address:port)|
 |usr|the name of the user (defaults to 'admin')|
@@ -33,8 +34,18 @@ The python webserver only supports one client. To support more cameras you have 
 ## OBS Custom Browser Dock
 Now close the browser window, launch OBS, select 'View | Docks | Custom Browser Docks ...' and configure a dock with the localserver and the server port:\
 <img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Custom_Browser_Dock_Setup.png'>
+
 Hit Apply and Close and the new docking panel will appear within 20 seconds:\
 <img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Custom_Browser_Dock_Panel.png'>
 
+## scene_execute_command.lua
+The OBS <a href='https://obsproject.com/forum/resources/scene-execute-command.1028/'>Scene Execute Command'> script implements executing an cgi command upon scene changes. To automatically switch to camera position, specify the appropriate command in the script arguments. The FOSCAM cgi command to go to a preset point is:\
+```
+curl.exe http://CAMERAIPADDRESS:88/cgi-bin/CGIProxy.fcgi?usr=admin^&pwd=PASSWORD^&cmd=ptzGotoPresetPoint^&name=SCENE_VALUE
+```
+I configure the move usually to take place in a scene where a different camera is selected to prevent dizziness of the audience.
+  
+## GStreamer
 
+E.G. to send
 
