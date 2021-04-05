@@ -21,7 +21,7 @@ To test the server, launch your favorite browser and enter the following URL:
 http://localhost:8081?hidestandardpresets
 ```
 
-When the cgi requests to the camera succeed, the Presets list should be populated and you can use the <>^v buttons to tilt and pan the camera.\
+When the cgi requests to the camera succeed, the Presets list should be populated and you can use the <>^v buttons to tilt and pan the camera. The query parameter 'hidestandardpresets' can be used to hide the presets TopMost, BottomMost, RightMost and LeftMost.\
 <img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Camera_Control_Panel.png'>
 
 To delete or add a preset, enter the name of the preset in the lower text field and press the + (add) or - (delete) button.
@@ -32,9 +32,9 @@ The python webserver only supports one client. To support more cameras you have 
 
 ## OBS Custom Browser Dock
 Now close the browser window, launch OBS, select 'View | Docks | Custom Browser Docks ...' and configure a dock with the localserver and the server port:\
-<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Custom_Browser_Dock_Setup.png'>
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Custom_Browser_Dock_Setup.png'>
 Hit Apply and Close and the new docking panel will appear within 20 seconds:\
-<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/OBS_PTZ_Custom_Browser_Dock_Panel.png'>
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/OBS_PTZ_Custom_Browser_Dock_Panel.png'>
 
 
 
