@@ -29,7 +29,7 @@ To delete or add a preset, enter the name of the preset in the lower text field 
 
 The actual .cgi commands are present in the file 'foscam.html'. When another 'type' is specified, the server will look for an .html file with that name. The javascript in the .html file uses a XMLHttpRequest to send the commands to the server. The server forwards all requests with a non-empty path to the camera.
 
-The python webserver only supports one client. To support more cameras you have to start a server session for each camera on a different port.
+To support more cameras you can start the server without the camera url and password and specify them on the page URL: http://localhost:8081?url=http://192.168.2.100:88&pwd=PASSWORD.
 
 ## OBS Custom Browser Dock
 Now close the browser window, launch OBS, select 'View | Docks | Custom Browser Docks ...' and configure a dock with the localserver and the server port:\
@@ -61,7 +61,4 @@ rtspsrc location=rtspt://admin:PASSWORD@IPADDRESS:88/videoMain latency=120 ! rtp
 The latency was tuned to yield the same latency as the connected USB camera.\
 The pipeline seems to work only when the camera is set to the same format as the OBS canvas: (Full HD).\
 I guess that for different formats, a video conversion should be added to the pipeline.\
-<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/FoscamVMS_StreamSettings.png'>\
-
-
-
+<img src='https://raw.githubusercontent.com/Kees-van-der-Oord/OBS_PTZ_Camera_Control_Panel/main/screenshots/FoscamVMS_StreamSettings.png'>
