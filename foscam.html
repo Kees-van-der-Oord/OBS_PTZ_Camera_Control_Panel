@@ -26,7 +26,7 @@ input, button {
   margin: 0px -0px 0px 0px;
 }
 </style> </header>
-<body  onload="onBodyLoad()">
+<body onload="initPresets()">
 <table>
 <tr>
 <td valign="top"><table>
@@ -47,9 +47,16 @@ input, button {
 <script>
 var presets = document.getElementById('Presets');
 var curpreset = document.getElementById('CurPreset');
-var url = window.location.hostname + "/cgi-bin/CGIProxy.fcgi?cmd=";
-var hidestandardpresets = 0;
 var standardpresets = {'TopMost':1,'BottomMost':1,'LeftMost':1,'RightMost':1};
+var args = parseQueryArgs();
+var hidestandardpresets = 'hidestandardpresets' in args;
+delete args['hidestandardpresets'];
+var url = "/cgi-bin/CGIProxy.fcgi?";
+for(var key in args)
+{
+	url += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]) + '&';
+}
+url += 'cmd=';
 function setStatus(text)
 {
 	var s = document.getElementById('status');
@@ -86,7 +93,7 @@ function fillPresets()
 		presets.options[presets.options.length] = new Option(preset, "");
 	}
 	presets.size = presets.options.length;
-	// only way to hide the scrollbar is to set a negative right marging ?
+	// only way to hide the scrollbar is to set a negative right margin ?
   presets.style.marginRight = 	presets.clientWidth - presets.offsetWidth; 
 }
 function initPresets()
@@ -146,13 +153,6 @@ function parseQueryArgs()
 	}
 	return args;
 }
-function onBodyLoad()
-{
-   var args = parseQueryArgs();
-	 hidestandardpresets = 'hidestandardpresets' in args;
-   initPresets();
-}
-
 </script>
 </body>
 </html>
